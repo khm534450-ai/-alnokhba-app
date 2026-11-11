@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172B4D">
+<title>النخبة - منصتك الدراسية</title>
+
+<style>
+:root{
+--navy:#172B4D;
+--navy2:#29466D;
+--teal:#19A7A0;
+--gold:#D6A84F;
+--bg:#F4F5F7;
+--surface:#FFFFFF;
+--text:#19283D;
+--muted:#78869A;
+--line:#E5E9EF;
+}
+body.dark{
+--bg:#101B2B;
+--surface:#19283D;
+--text:#F2F5FA;
+--muted:#AAB7C8;
+--line:#2C3D54;
+}
+*{box-sizing:border-box}
+body{
+margin:0;background:var(--bg);color:var(--text);
+font-family:Tahoma,Arial,sans-serif;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1400px;margin:auto;padding:20px}
+.header{
+display:flex;justify-content:space-between;align-items:center;
+gap:15px;margin-bottom:22px;flex-wrap:wrap
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+width:52px;height:52px;border-radius:16px;
+background:var(--navy);color:var(--gold);
+display:grid;place-items:center;font-size:26px;font-weight:bold
+}
+.brand h1{margin:0;font-size:23px}
+.brand p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.header-actions{display:flex;gap:8px}
+.icon-btn,.secondary{
+border:1px solid var(--line);background:var(--surface);
+color:var(--text);padding:11px 14px;border-radius:13px
+}
+.welcome{
+background:linear-gradient(120deg,var(--navy),var(--navy2));
+color:white;border-radius:24px;padding:28px;
+display:flex;justify-content:space-between;align-items:center
+}
+.welcome h2{font-size:25px;margin:0 0 10px}
+.welcome p{color:#D5DFEB;line-height:1.8;margin:0}
+.gold{color:var(--gold)}
+.section-head{
+display:flex;justify-content:space-between;align-items:center;
+gap:10px;margin:30px 0 15px
+}
+.section-head h2{font-size:20px;margin:0}
+.muted{color:var(--muted);font-size:13px}
+.card{
+background:var(--surface);border:1px solid var(--line);
+border-radius:21px;padding:22px;
+box-shadow:0 8px 25px rgba(23,43,77,.05)
+}
+.primary{
+border:0;background:var(--teal);color:white;
+padding:13px 18px;border-radius:13px;font-weight:bold
+}
+.gold-btn{
+border:0;background:var(--gold);color:var(--navy);
+padding:13px 18px;border-radius:13px;font-weight:bold
+}
+
+/* دوائر العدادات */
+.counter-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:20px;
+}
+.counter-card{
+display:flex;flex-direction:column;align-items:center;
+justify-content:center;text-align:center;
+min-height:245px;padding:20px 10px
+}
+.circle{
+width:155px;height:155px;position:relative;
+display:grid;place-items:center
+}
+.circle svg{
+width:155px;height:155px;transform:rotate(-90deg)
+}
+.circle circle{
+fill:none;stroke-width:10
+}
+.circle .track{stroke:var(--line)}
+.circle .fill{
+stroke:var(--teal);stroke-linecap:round;
+stroke-dasharray:408;stroke-dashoffset:408;
+transition:stroke-dashoffset .5s
+}
+.circle.gold-circle .fill{stroke:var(--gold)}
+.circle-content{
+position:absolute;text-align:center;
+display:flex;flex-direction:column;align-items:center;gap:5px
+}
+.circle-value{font-size:23px;font-weight:bold}
+.circle-label{font-size:11px;color:var(--muted)}
+.counter-card h3{margin:14px 0 5px;font-size:16px}
+.counter-card p{margin:0;font-size:12px;color:var(--muted)}
+
+/* المواد */
+.subject-grid{
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:20px
+}
+.subject{
+background:var(--surface);border:1px solid var(--line);
+border-radius:21px;padding:24px;min-height:150px;
+cursor:pointer;transition:.2s
+}
+.subject:hover,.tile:hover{transform:translateY(-3px)}
+.subject-icon{font-size:32px;margin-bottom:12px}
+.subject h3{margin:0 0 8px}
+.subject p{margin:0;color:var(--muted);font-size:13px}
+
+/* المهام */
+.task-row{
+display:flex;align-items:center;gap:12px;
+padding:13px 0;border-bottom:1px solid var(--line)
+}
+.task-row:last-child{border:0}
+.task-row input{width:19px;height:19px;accent-color:var(--teal)}
+.task-row.done span{text-decoration:line-through;color:var(--muted)}
+
+/* الفيديو */
+.video-box{
+background:var(--surface);border:1px solid var(--line);
+border-radius:22px;padding:24px
+}
+.field{
+width:100%;padding:15px;border:1px solid var(--line);
+background:var(--bg);color:var(--text);
+border-radius:13px;margin:10px 0 15px
+}
+.video-result{
+white-space:pre-wrap;line-height:2;
+padding:18px;background:var(--bg);
+border-radius:15px;margin-top:15px;
+overflow-wrap:anywhere
+}
+.video-result h3{margin-top:0}
+.tiles{
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:20px;margin-top:20px
+}
+.tile{
+background:var(--surface);border:1px solid var(--line);
+border-radius:21px;padding:25px;min-height:165px;
+cursor:pointer;transition:.2s
+}
+.tile .symbol{font-size:32px;margin-bottom:15px}
+.tile h3{margin:0 0 9px}
+.tile p{font-size:13px;color:var(--muted);line-height:1.7}
+.detail{display:none}
+.detail.active{display:block}
+.home.hidden{display:none}
+.back{margin-bottom:18px}
+.notice{font-size:12px;color:var(--muted);line-height:1.8}
+.bottom-nav{
+display:none;position:fixed;bottom:0;right:0;left:0;
+background:var(--surface);border-top:1px solid var(--line);
+justify-content:space-around;padding:11px;z-index:10
+}
+.bottom-nav button{
+background:none;border:0;color:var(--muted)
+}
+@media(max-width:800px){
+.app{padding:14px;padding-bottom:85px}
+.subject-grid,.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:480px){
+.counter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.counter-card{min-height:205px;padding:13px 5px}
+.circle,.circle svg{width:125px;height:125px}
+.circle .circle-value{font-size:19px}
+.subject-grid,.tiles{gap:12px}
+.subject,.tile{padding:17px}
+.welcome{padding:21px}
+.welcome h2{font-size:21px}
+.bottom-nav{display:flex}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="header">
+<div class="brand">
+<div class="logo">ن</div>
+<div>
+<h1>النخبة</h1>
+<p>منصتك الذكية للتفوق الدراسي</p>
+</div>
+</div>
+<div class="header-actions">
+<button class="icon-btn" onclick="toggleTheme()">◐ الوضع</button>
+<button class="icon-btn" onclick="showProfile()">👤 حسابي</button>
+</div>
+</header>
+
+<main id="home" class="home">
+
+<section class="welcome">
+<div>
+<h2>أهلاً بك في <span class="gold">النخبة</span> 👋</h2>
+<p>كل يوم خطوة جديدة نحو التفوق.<br>
+نظّم وقتك وراقب تقدمك الدراسي.</p>
+</div>
+<div style="font-size:65px;color:#D6A84F">♛</div>
+</section>
+
+<!-- العدادات الأربعة -->
+<div class="section-head">
+<h2>⏱️ عدادات رحلتك الدراسية</h2>
+<span class="muted">متابعة وقتك وإنجازك</span>
+</div>
+
+<section class="counter-grid">
+
+<div class="card counter-card">
+<div class="circle gold-circle" id="examCircle">
+<svg viewBox="0 0 150 150">
+<circle class="track" cx="75" cy="75" r="65"/>
+<circle class="fill" cx="75" cy="75" r="65"/>
+</svg>
+<div class="circle-content">
+<div class="circle-value" id="examValue">--</div>
+<div class="circle-label">يوم متبقي</div>
+</div>
+</div>
+<h3>📅 عداد الامتحان</h3>
+<p>حدد تاريخ امتحانك</p>
+<input type="date" id="examDate" class="field" onchange="saveExam()">
+</div>
+
+<div class="card counter-card">
+<div class="circle" id="dayCircle">
+<svg viewBox="0 0 150 150">
+<circle class="track" cx="75" cy="75" r="65"/>
+<circle class="fill" cx="75" cy="75" r="65"/>
+</svg>
+<div class="circle-content">
+<div class="circle-value" id="dayValue">0</div>
+<div class="circle-label">دراسة اليوم</div>
+</div>
+</div>
+<h3>☀️ عداد اليوم</h3>
+<p id="dayDescription">هدفك اليومي: 4 ساعات</p>
+</div>
+
+<div class="card counter-card">
+<div class="circle" id="weekCircle">
+<svg viewBox="0 0 150 150">
+<circle class="track" cx="75" cy="75" r="65"/>
+<circle class="fill" cx="75" cy="75" r="65"/>
+</svg>
+<div class="circle-content">
+<div class="circle-value" id="weekValue">0</div>
+<div class="circle-label">دراسة الأسبوع</div>
+</div>
+</div>
+<h3>📚 عداد الأسبوع</h3>
+<p>هدف الأسبوع: 28 ساعة</p>
+</div>
+
+<div class="card counter-card">
+<div class="circle gold-circle" id="monthCircle">
+<svg viewBox="0 0 150 150">
+<circle class="track" cx="75" cy="75" r="65"/>
+<circle class="fill" cx="75" cy="75" r="65"/>
+</svg>
+<div class="circle-content">
+<div class="circle-value" id="monthValue">0</div>
+<div class="circle-label">دراسة الشهر</div>
+</div>
+</div>
+<h3>🗓️ عداد الشهر</h3>
+<p>هدف الشهر: 120 ساعة</p>
+</div>
+
+</section>
+
+<div class="section-head">
+<h2>ابدأ جلسة دراسة</h2>
+<span class="muted" id="timerStatus">المؤقت متوقف</span>
+</div>
+
+<section class="card">
+<h2 id="liveTimer" style="font-size:35px;text-align:center">00:00:00</h2>
+<p class="muted" style="text-align:center">شغّل المؤقت عندما تبدأ الدراسة وأوقفه عند الانتهاء.</p>
+<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+<button class="primary" id="startBtn" onclick="startStudy()">▶ بدء الدراسة</button>
+<button class="secondary" onclick="stopStudy()">■ إنهاء الجلسة</button>
+</div>
+<p class="notice">يُحفظ وقت جلساتك محلياً على الجهاز، وتُحسب منه إحصائيات اليوم والأسبوع والشهر.</p>
+</section>
+
+<div class="section-head">
+<h2>📅 جدول اليوم</h2>
+<button class="primary" onclick="addTask()">+ أضف مهمة</button>
+</div>
+<section class="card">
+<div id="taskList"></div>
+</section>
+
+<div class="section-head">
+<h2>📖 موادي الدراسية</h2>
+<span class="muted">اختر مادة</span>
+</div>
+<section class="subject-grid" id="subjects"></section>
+
+<div class="section-head">
+<h2>🎬 تحويل الفيديو إلى نص</h2>
+<span class="muted">أداة دراسية جديدة</span>
+</div>
+
+<section class="video-box">
+<div style="font-size:38px">🎥</div>
+<h2>حوّل شرح الفيديو إلى نص مكتوب</h2>
+<p class="muted">
+ضع رابط فيديو المحاضرة، وستتم معالجة الكلام المنطوق وتحويله إلى نص مرتب،
+مع ملخص شامل في نهاية النص.
+</p>
+<label for="videoUrl">رابط الفيديو</label>
+<input class="field" id="videoUrl" type="url"
+placeholder="https://example.com/video">
+
+<label for="videoLanguage">لغة الفيديو</label>
+<select class="field" id="videoLanguage">
+<option value="auto">اكتشاف اللغة تلقائياً</option>
+<option value="ar">العربية</option>
+<option value="en">الإنكليزية</option>
+<option value="fr">الفرنسية</option>
+</select>
+
+<button class="primary" id="transcribeBtn" onclick="transcribeVideo()">
+تحويل الفيديو إلى نص
+</button>
+
+<div id="videoStatus" class="notice"></div>
+<div id="videoOutput"></div>
+
+<p class="notice">
+ملاحظة: هذه الواجهة تحتاج إلى خدمة خلفية لمعالجة الفيديو والتعرف على الكلام.
+لا يكفي وضع الرابط وحده داخل صفحة HTML. يجب ربطها بخدمة تحويل صوت إلى نص،
+مع إمكانية الوصول إلى الفيديو أو ملفه الصوتي بشكل مسموح.
+</p>
+</section>
+
+<div class="section-head"><h2>⏮️ تابع من حيث توقفت</h2></div>
+<section class="card">
+<strong id="lastPlace">لم تفتح أي مادة بعد</strong>
+<p class="muted">آخر مادة زرتها تظهر هنا.</p>
+<button class="secondary" onclick="continueLast()">متابعة</button>
+</section>
+
+<div class="section-head"><h2>🤖 المساعد الذكي</h2></div>
+<section class="card" style="background:var(--navy);color:white">
+<h2>مساعدك الدراسي العام</h2>
+<p style="color:#D5DFEB;line-height:1.8">
+اسأل عن دروسك واطلب الشرح والحل وتنظيم الدراسة.
+</p>
+<button class="gold-btn" onclick="openAssistant()">افتح المساعد العام ←</button>
+</section>
+
+</main>
+
+<section id="detail" class="detail">
+<button class="secondary back" onclick="goHome()">← العودة للرئيسية</button>
+<div class="welcome">
+<div>
+<h2 id="subjectTitle">المادة</h2>
+<p>مساحتك الخاصة لدراسة هذه المادة.</p>
+</div>
+<div style="font-size:50px;color:var(--gold)">✦</div>
+</div>
+<div class="section-head"><h2>أقسام المادة</h2></div>
+<div class="tiles" id="subjectTiles"></div>
+<div id="sectionContent" style="margin-top:20px"></div>
+</section>
+
+<section id="assistant" class="detail">
+<button class="secondary back" onclick="goHome()">← العودة</button>
+<div class="card">
+<h2>🤖 المساعد العام</h2>
+<textarea class="field" id="assistantQuestion" placeholder="اكتب سؤالك الدراسي..."></textarea>
+<button class="primary" onclick="alert('يتطلب ربط خدمة الذكاء الاصطناعي لتفعيل الردود.')">إرسال السؤال</button>
+<p class="notice">يحتاج ربط خدمة الذكاء الاصطناعي لتفعيل المحادثة.</p>
+</div>
+</section>
+
+<section id="profile" class="detail">
+<button class="secondary back" onclick="goHome()">← العودة</button>
+<div class="card">
+<h2>الملف الشخصي</h2>
+<input class="field" id="studentName" placeholder="اسم الطالب">
+<button class="primary" onclick="saveProfile()">حفظ</button>
+</div>
+</section>
+
+</div>
+
+<nav class="bottom-nav">
+<button onclick="goHome()">⌂<br>الرئيسية</button>
+<button onclick="goHome();document.getElementById('subjects').scrollIntoView()">▦<br>المواد</button>
+<button onclick="openAssistant()">✧<br>المساعد</button>
+<button onclick="showProfile()">●<br>حسابي</button>
+</nav>
+
+<script>
+/* المواد */
+const subjects=[
+["الرياضيات","∑"],["الفيزياء","⚛"],["الكيمياء","⚗"],
+["علم الأحياء","🧬"],["اللغة العربية","أ"],
+["اللغة الإنكليزية","A"],["اللغة الفرنسية","F"],
+["التربية الدينية","☪"]
+];
+
+const sections=[
+["الأبحاث","🔎","الأبحاث والمصادر العلمية"],
+["الملخصات","📝","ملخصات الدروس"],
+["الملفات وPDF","📁","ملفات المادة"],
+["الفيديوهات","🎬","فيديوهات الشرح"],
+["أسئلة الدورات","📋","الأسئلة والاختبارات"],
+["ملاحظاتي","✍️","ملاحظاتك الخاصة"]
+];
+
+let tasks=JSON.parse(localStorage.getItem("nok_tasks")||"[]");
+let sessions=JSON.parse(localStorage.getItem("nok_sessions")||"[]");
+let currentSubject="";
+let lastSubject=localStorage.getItem("nok_last")||"";
+let timerStart=null;
+let timerInterval=null;
+let currentElapsed=0;
+
+function renderSubjects(){
+const box=document.getElementById("subjects");
+box.innerHTML="";
+subjects.forEach(([name,icon])=>{
+const el=document.createElement("div");
+el.className="subject";
+el.innerHTML=`<div class="subject-icon">${icon}</div>
+<h3>${name}</h3><p>افتح المادة وأقسامها</p>`;
+el.onclick=()=>openSubject(name);
+box.appendChild(el);
+});
+}
+
+/* المهام */
+function renderTasks(){
+const box=document.getElementById("taskList");
+box.innerHTML="";
+tasks.forEach((task,index)=>{
+const row=document.createElement("div");
+row.className="task-row"+(task.done?" done":"");
+const check=document.createElement("input");
+check.type="checkbox";
+check.checked=task.done;
+check.onchange=()=>{
+tasks[index].done=check.checked;
+saveTasks();
+};
+const label=document.createElement("span");
+label.textContent=task.name;
+row.append(check,label);
+box.append(row);
+});
+if(!tasks.length){
+box.innerHTML='<p class="muted">لم تضف مهام اليوم بعد.</p>';
+}
+}
+function saveTasks(){
+localStorage.setItem("nok_tasks",JSON.stringify(tasks));
+renderTasks();
+}
+function addTask(){
+const name=prompt("ما المهمة التي تريد دراستها؟");
+if(name&&name.trim()){
+tasks.push({name:name.trim(),done:false});
+saveTasks();
+}
+}
+
+/* المؤقت */
+function startStudy(){
+if(timerStart)return;
+timerStart=Date.now();
+document.getElementById("timerStatus").textContent="جلسة الدراسة جارية";
+document.getElementById("startBtn").disabled=true;
+timerInterval=setInterval(updateLiveTimer,1000);
+}
+function updateLiveTimer(){
+if(!timerStart)return;
+currentElapsed=Math.floor((Date.now()-timerStart)/1000);
+document.getElementById("liveTimer").textContent=formatTime(currentElapsed);
+}
+function stopStudy(){
+if(!timerStart){
+alert("المؤقت غير مشغّل.");
+return;
+}
+const end=Date.now();
+const seconds=Math.floor((end-timerStart)/1000);
+if(seconds>0){
+sessions.push({start:timerStart,end:end,seconds:seconds});
+localStorage.setItem("nok_sessions",JSON.stringify(sessions));
+}
+timerStart=null;
+clearInterval(timerInterval);
+currentElapsed=0;
+document.getElementById("liveTimer").textContent="00:00:00";
+document.getElementById("timerStatus").textContent="المؤقت متوقف";
+document.getElementById("startBtn").disabled=false;
+updateCounters();
+}
+function formatTime(total){
+const h=Math.floor(total/3600);
+const m=Math.floor((total%3600)/60);
+const s=total%60;
+return [h,m,s].map(v=>String(v).padStart(2,"0")).join(":");
+}
+
+/* تجميع وقت الدراسة */
+function getSeconds(period){
+const now=new Date();
+const start=new Date(now);
+if(period==="day"){
+start.setHours(0,0,0,0);
+}else if(period==="week"){
+const day=(now.getDay()+6)%7;
+start.setDate(now.getDate()-day);
+start.setHours(0,0,0,0);
+}else if(period==="month"){
+start.setDate(1);
+start.setHours(0,0,0,0);
+}
+let total=0;
+sessions.forEach(s=>{
+const a=Math.max(s.start,start.getTime());
+const b=Math.min(s.end,now.getTime());
+if(b>a)total+=(b-a)/1000;
+});
+if(timerStart){
+const a=Math.max(timerStart,start.getTime());
+if(now.getTime()>a)total+=(now.getTime()-a)/1000;
+}
+return Math.floor(total);
+}
+function updateCircle(id,percent){
+const el=document.querySelector("#"+id+" .fill");
+const circumference=408;
+const p=Math.max(0,Math.min(100,percent));
+el.style.strokeDasharray=circumference;
+el.style.strokeDashoffset=circumference-(circumference*p/100);
+}
+function shortTime(seconds){
+const h=Math.floor(seconds/3600);
+const m=Math.floor((seconds%3600)/60);
+return h+"س "+m+"د";
+}
+function updateCounters(){
+const day=getSeconds("day");
+const week=getSeconds("week");
+const month=getSeconds("month");
+
+document.getElementById("dayValue").textContent=shortTime(day);
+document.getElementById("weekValue").textContent=shortTime(week);
+document.getElementById("monthValue").textContent=shortTime(month);
+
+updateCircle("dayCircle",day/(4*3600)*100);
+updateCircle("weekCircle",week/(28*3600)*100);
+updateCircle("monthCircle",month/(120*3600)*100);
+}
+
+/* عداد الامتحان */
+function saveExam(){
+localStorage.setItem("nok_exam",document.getElementById("examDate").value);
+updateExam();
+}
+function updateExam(){
+const date=localStorage.getItem("nok_exam");
+const value=document.getElementById("examValue");
+if(!date){
+value.textContent="--";
+updateCircle("examCircle",0);
+return;
+}
+const target=new Date(date+"T00:00:00");
+const diff=target.getTime()-new Date().getTime();
+const days=Math.ceil(diff/86400000);
+value.textContent=days>=0?days:"انتهى";
+updateCircle("examCircle",days>0?Math.min(100,days/210*100):0);
+}
+
+/* الأقسام */
+function openSubject(name){
+currentSubject=name;
+lastSubject=name;
+localStorage.setItem("nok_last",name);
+document.getElementById("home").classList.add("hidden");
+document.getElementById("detail").classList.add("active");
+document.getElementById("subjectTitle").textContent=name;
+document.getElementById("lastPlace").textContent=name;
+
+const box=document.getElementById("subjectTiles");
+box.innerHTML="";
+sections.forEach(([title,icon,description])=>{
+const tile=document.createElement("div");
+tile.className="tile";
+tile.innerHTML=`<div class="symbol">${icon}</div>
+<h3>${title}</h3><p>${description}</p>`;
+tile.onclick=()=>openSection(title);
+box.append(tile);
+});
+document.getElementById("sectionContent").innerHTML="";
+window.scrollTo(0,0);
+}
+function openSection(name){
+const box=document.getElementById("sectionContent");
+if(name==="ملاحظاتي"){
+box.innerHTML=`<div class="card"><h2>${currentSubject} - ملاحظاتي</h2>
+<textarea class="field" id="notes" placeholder="اكتب ملاحظاتك..."></textarea>
+<button class="primary" onclick="saveNotes()">حفظ الملاحظات</button></div>`;
+document.getElementById("notes").value=localStorage.getItem("notes_"+currentSubject)||"";
+return;
+}
+if(name==="الملفات وPDF"){
+box.innerHTML=`<div class="card"><h2>ملفات ${currentSubject}</h2>
+<input class="field" type="file" accept=".pdf" multiple>
+<p class="notice">رفع الملفات وتحليلها يحتاج ربط خدمة تخزين ومعالجة PDF.</p></div>`;
+return;
+}
+box.innerHTML=`<div class="card"><h2>${currentSubject} - ${name}</h2>
+<p>هذا القسم مخصص لمحتوى ${name} في مادة ${currentSubject}.</p></div>`;
+}
+function saveNotes(){
+localStorage.setItem("notes_"+currentSubject,document.getElementById("notes").value);
+alert("تم حفظ الملاحظات.");
+}
+function goHome(){
+document.querySelectorAll(".detail").forEach(x=>x.classList.remove("active"));
+document.getElementById("home").classList.remove("hidden");
+window.scrollTo(0,0);
+}
+function continueLast(){
+if(lastSubject)openSubject(lastSubject);
+else alert("افتح مادة أولاً.");
+}
+function openAssistant(){
+document.getElementById("home").classList.add("hidden");
+document.querySelectorAll(".detail").forEach(x=>x.classList.remove("active"));
+document.getElementById("assistant").classList.add("active");
+window.scrollTo(0,0);
+}
+function showProfile(){
+document.getElementById("home").classList.add("hidden");
+document.querySelectorAll(".detail").forEach(x=>x.classList.remove("active"));
+document.getElementById("profile").classList.add("active");
+document.getElementById("studentName").value=localStorage.getItem("nok_name")||"";
+window.scrollTo(0,0);
+}
+function saveProfile(){
+localStorage.setItem("nok_name",document.getElementById("studentName").value);
+alert("تم حفظ الاسم.");
+}
+function toggleTheme(){
+document.body.classList.toggle("dark");
+localStorage.setItem("nok_theme",document.body.classList.contains("dark")?"dark":"light");
+}
+
+/* تحويل الفيديو إلى نص - يتطلب خادماً خلفياً */
+async function transcribeVideo(){
+const url=document.getElementById("videoUrl").value.trim();
+const language=document.getElementById("videoLanguage").value;
+const status=document.getElementById("videoStatus");
+const output=document.getElementById("videoOutput");
+const btn=document.getElementById("transcribeBtn");
+
+if(!url){
+alert("ضع رابط الفيديو أولاً.");
+return;
+}
+try{
+new URL(url);
+}catch(e){
+alert("الرابط غير صحيح.");
+return;
+}
+
+btn.disabled=true;
+status.textContent="جارٍ إرسال الرابط للمعالجة...";
+output.innerHTML="";
+
+try{
+const response=await fetch("/api/video-to-text",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({url:url,language:language})
+});
+if(!response.ok)throw new Error("الخدمة غير متاحة حالياً.");
+const result=await response.json();
+
+if(!result.transcript)throw new Error("لم يتم إرجاع النص.");
+
+const title=document.createElement("h3");
+title.textContent="النص المستخرج من الفيديو";
+const transcript=document.createElement("div");
+transcript.className="video-result";
+transcript.textContent=result.transcript;
+
+const summaryTitle=document.createElement("h3");
+summaryTitle.textContent="الملخص الشامل";
+const summary=document.createElement("div");
+summary.className="video-result";
+summary.textContent=result.summary||"لم يتم توفير ملخص.";
+
+output.append(title,transcript,summaryTitle,summary);
+status.textContent="اكتملت معالجة الفيديو.";
+}catch(error){
+status.textContent="لم تكتمل المعالجة: "+error.message;
+output.innerHTML='<p class="notice">ميزة تحويل الفيديو تحتاج إلى إنشاء وربط الخادم الخلفي وخدمة التعرف على الكلام. هذه الواجهة وحدها لا تستطيع استخراج صوت الفيديو من الرابط.</p>';
+}finally{
+btn.disabled=false;
+}
+}
+
+/* تشغيل أولي */
+if(localStorage.getItem("nok_theme")==="dark"){
+document.body.classList.add("dark");
+}
+document.getElementById("examDate").value=localStorage.getItem("nok_exam")||"";
+renderSubjects();
+renderTasks();
+updateCounters();
+updateExam();
+setInterval(updateCounters,1000);
+setInterval(updateExam,60000);
+</script>
+</body>
+</html>
